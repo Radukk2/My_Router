@@ -1,0 +1,815 @@
+-- Wrong number of packets!
+-- Expected: 20
+-- Got: 30
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34180
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x7108
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34180
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x7208
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34181
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x7107
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34181
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x7207
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34187
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x7101
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34187
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x7201
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34192
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70fc
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34192
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71fc
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34196
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70f8
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34196
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71f8
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34197
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70f7
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34197
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71f7
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34202
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70f2
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34202
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71f2
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34209
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70eb
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34209
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71eb
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34213
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70e7
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34213
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71e7
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = ca:fe:ba:be:01:00
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 1
+     flags     = 
+     frag      = 0
+     ttl       = 62
+     proto     = icmp
+     chksum    = 0xf88b
+     src       = 192.168.0.2
+     dst       = 192.168.3.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xf7ff
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34221
+     flags     = 
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x70df
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:00
+  src       = de:fe:c8:ed:01:03
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 28
+     id        = 34221
+     flags     = 
+     frag      = 0
+     ttl       = 63
+     proto     = icmp
+     chksum    = 0x71df
+     src       = 192.168.3.2
+     dst       = 192.168.0.2
+     \options   \
+###[ ICMP ]### 
+        type      = echo-reply
+        code      = 0
+        chksum    = 0x0
+        id        = 0x0
+        seq       = 0x0
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:fe:c8:ed:01:03
+  src       = de:ad:be:ef:00:03
+  type      = ARP
+###[ ARP ]### 
+     hwtype    = 0x1
+     ptype     = IPv4
+     hwlen     = 6
+     plen      = 4
+     op        = who-has
+     hwsrc     = de:ad:be:ef:00:03
+     psrc      = 192.168.3.2
+     hwdst     = 00:00:00:00:00:00
+     pdst      = 192.168.3.1
+
+-- Packet
+###[ Ethernet ]### 
+  dst       = de:ad:be:ef:00:03
+  src       = de:fe:c8:ed:01:03
+  type      = ARP
+###[ ARP ]### 
+     hwtype    = 0x1
+     ptype     = IPv4
+     hwlen     = 6
+     plen      = 4
+     op        = is-at
+     hwsrc     = de:fe:c8:ed:01:03
+     psrc      = 192.168.3.1
+     hwdst     = de:ad:be:ef:00:03
+     pdst      = 192.168.3.2
+

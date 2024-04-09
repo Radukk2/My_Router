@@ -42,51 +42,78 @@ int comp_function(const void *a, const void *b) {
     return r2->mask - r1->mask;
 }
 
-int send_no_route(int interface, char *buff, char *msg)
+
+int send_no_route(int interface, char *msg, struct ether_header *eth, struct iphdr *first_ip, struct iphdr *last_ip, char *data)
 {
+	//icmp creation
 	struct icmphdr *icmp = calloc(1, sizeof(struct icmphdr));
 	icmp->type = 3;
 	icmp->code = 0;
-	memcpy(buff + sizeof(struct iphdr) + sizeof(struct ether_header), icmp, sizeof(struct icmphdr));
-	struct iphdr *ip = calloc(1, sizeof(struct iphdr));
-	ip->ihl = 5;
-	ip->version = 4;
-	ip->id = 1;
-	ip->tos = 0;
-	ip->frag_off = 0;
-	memcpy(buff + sizeof(struct iphdr) + sizeof(struct ether_header) + sizeof(struct icmphdr), ip, sizeof(struct iphdr));	
-	send_to_link(interface, "Time exceeded", 14);
-	return 11;
+	icmp->checksum = 0;
+	icmp->checksum = checksum((uint16_t *)icmp, sizeof(struct iphdr) + sizeof(struct icmphdr) + 8);
+
+	//new packet
+	char *new_buff = malloc(sizeof(struct icmphdr) + sizeof(struct iphdr) * 2 + sizeof(struct ether_header) + 8);
+	memcpy(new_buff, eth, sizeof(struct ether_header));
+	memcpy(new_buff + sizeof(struct ether_header), first_ip, sizeof(struct iphdr));
+	memcpy(new_buff + sizeof(struct iphdr) + sizeof(struct ether_header), icmp, sizeof(struct icmphdr));
+	memcpy(new_buff + sizeof(struct iphdr) + sizeof(struct ether_header) + sizeof(struct icmphdr), last_ip, sizeof(struct iphdr)); 
+	memcpy(new_buff + sizeof(struct iphdr) + sizeof(struct ether_header) + sizeof(struct icmphdr) * 2, data, 8);
+	send_to_link(interface, new_buff, sizeof(struct icmphdr) + sizeof(struct iphdr) * 2 + sizeof(struct ether_header) + 8);
+	return 3;
 }
 
-int send_ttl(int interface, char *buff, char *msg)
+int send_ttl(int interface, char *msg, struct ether_header *eth, struct iphdr *first_ip, struct iphdr *last_ip, char *data)
 {
+	//icmp creation
 	struct icmphdr *icmp = calloc(1, sizeof(struct icmphdr));
 	icmp->type = 11;
 	icmp->code = 0;
-	memcpy(buff + sizeof(struct iphdr) + sizeof(struct ether_header), icmp, sizeof(struct icmphdr));
-	struct iphdr *ip = calloc(1, sizeof(struct iphdr));
-	ip->ihl = 5;
-	ip->version = 4;
-	ip->id = 1;
-	ip->tos = 0;
-	ip->frag_off = 0;
-	memcpy(buff + sizeof(struct iphdr) + sizeof(struct ether_header) + sizeof(struct icmphdr), ip, sizeof(struct iphdr));	
-	send_to_link(interface, "Time exceeded", 14);
+	icmp->checksum = 0;
+	icmp->checksum = checksum((uint16_t *)icmp, sizeof(struct iphdr) + sizeof(struct icmphdr) + 8);
+
+
+	//new packet
+	char *new_buff = malloc(sizeof(struct icmphdr) + sizeof(struct iphdr) * 2 + sizeof(struct ether_header) + 8);
+	memcpy(new_buff, eth, sizeof(struct ether_header));
+	memcpy(new_buff + sizeof(struct ether_header), first_ip, sizeof(struct iphdr));
+	memcpy(new_buff + sizeof(struct iphdr) + sizeof(struct ether_header), icmp, sizeof(struct icmphdr));
+	memcpy(new_buff + sizeof(struct iphdr) + sizeof(struct ether_header) + sizeof(struct icmphdr), last_ip, sizeof(struct iphdr)); 
+	memcpy(new_buff + sizeof(struct iphdr) + sizeof(struct ether_header) + sizeof(struct icmphdr) * 2, data, 8);
+	send_to_link(interface, new_buff, sizeof(struct icmphdr) + sizeof(struct iphdr) * 2 + sizeof(struct ether_header) + 8);
 	return 11;
 }
 
 int send_icmp(char *msg, char *buf, int interface, struct ether_header *ether_header, struct iphdr *ip_hdr)
 {
-	char *buff = malloc(8 + sizeof(struct iphdr) * 2 + sizeof(struct ether_header) + sizeof(struct icmphdr));
-	memcpy(buff, ether_header, sizeof(struct ether_header));
-	memcpy(buff + sizeof(struct ether_header), ip_hdr, sizeof(struct iphdr));
-	if (strcmp(msg, "No route") == 0)
-		return send_no_route(interface, buff, msg);
-	if (strcmp(msg, "Time to leave") == 0)
-		return send_ttl(interface, buff, msg);
-	return -1;
+	//ether_addres
+	memcpy(ether_header->ether_dhost, ether_header->ether_shost, 6);
+	get_interface_mac(interface, ether_header->ether_shost);
 
+	//get first 8 bytes
+	char *first8 = malloc(sizeof(char) * 8);
+	memcpy(first8, buf + sizeof(struct iphdr) + sizeof(struct ether_header), 8);
+
+	//modify first ip for icmp packet
+	struct iphdr *first_ip = malloc(sizeof(struct iphdr));
+	first_ip->tos = 0;
+	first_ip->frag_off = 0;
+	first_ip->version = 4;
+	first_ip->ihl = 5;
+	first_ip->id = 1;
+	first_ip->check = 0;
+	first_ip->protocol = 1;
+	first_ip->tot_len = sizeof(struct iphdr) * 2 + 8 + sizeof(struct icmphdr);
+	first_ip->saddr = inet_addr(get_interface_ip(interface));
+	first_ip->daddr = ip_hdr->saddr;
+	first_ip->check = checksum((uint16_t *)first_ip, sizeof(struct iphdr));
+
+	//send
+	if (strcmp(msg, "No route") == 0)
+		return send_no_route(interface, msg, ether_header, first_ip, ip_hdr, first8);
+	if (strcmp(msg, "Time to leave") == 0)
+		return send_ttl(interface, msg, ether_header, first_ip, ip_hdr, first8);
+	return -1;
 }
 
 int main(int argc, char *argv[])

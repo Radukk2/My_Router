@@ -84,6 +84,28 @@ int send_ttl(int interface, char *msg, struct ether_header *eth, struct iphdr *f
 	return 11;
 }
 
+int send_echo(int interface, char *buf, size_t len) {
+	puts("echo\n");
+	//icmp creation
+	struct ether_header *eth_hdr = (struct ether_header *) buf;
+	struct iphdr *ip_hdr1 = (struct iphdr *)(buf + sizeof(struct ether_header));
+	struct icmphdr *icmp_hdr = (struct icmphdr *)(buf + sizeof(struct ether_header) + sizeof(struct iphdr));
+	
+	memcpy(eth_hdr->ether_dhost, eth_hdr->ether_shost, 6);
+	get_interface_mac(interface, eth_hdr->ether_shost);
+
+	ip_hdr1->daddr = ip_hdr1->saddr;
+	ip_hdr1->saddr = inet_addr(get_interface_ip(interface));
+	ip_hdr1->check = 0;
+	ip_hdr1->check = htons(checksum((uint16_t *)ip_hdr1, sizeof(struct iphdr)));
+
+	icmp_hdr->type = 0;
+	icmp_hdr->code = 0;
+	send_to_link(interface, buf, len);
+
+	return 0;
+}
+
 int send_icmp(char *msg, char *buf, int interface, struct ether_header *ether_header, struct iphdr *ip_hdr)
 {
 	//ether_addres
@@ -104,8 +126,8 @@ int send_icmp(char *msg, char *buf, int interface, struct ether_header *ether_he
 	first_ip->check = 0;
 	first_ip->protocol = 1;
 	first_ip->tot_len = sizeof(struct iphdr) * 2 + 8 + sizeof(struct icmphdr);
-	first_ip->saddr = inet_addr(get_interface_ip(interface));
 	first_ip->daddr = ip_hdr->saddr;
+	first_ip->saddr = inet_addr(get_interface_ip(interface));
 	first_ip->check = checksum((uint16_t *)first_ip, sizeof(struct iphdr));
 
 	//send
@@ -146,7 +168,16 @@ int main(int argc, char *argv[])
 			printf("Ignored non-IPv4 packet\n");
 			continue;
 		}
-		
+		if (ip_hdr->protocol == 1) {
+			struct icmphdr *icmphdr = (struct icmphdr *)(buf + sizeof(struct ether_header) + sizeof(struct iphdr));
+			if (icmphdr->type == 8 && ip_hdr->daddr == inet_addr(get_interface_ip(interface))) {
+				printf("proto\n");
+				icmphdr->type = 0;
+				send_echo(interface, buf, len);
+				continue;
+			}
+		}
+
 		uint16_t ip_sum =  ntohs(ip_hdr->check);
 		ip_hdr->check = 0;
 		uint16_t check =  checksum((uint16_t *)ip_hdr, sizeof(struct iphdr));

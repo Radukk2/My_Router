@@ -1,54 +1,62 @@
 Setting up interface: rr-0-1
 Setting up interface: r-0
 Setting up interface: r-1
+Ignored non-IPv4 packet
+Am intrat in ma ta
+63636
+1
+aici
+Ignored non-IPv4 packet
 63636
 1
 Ignored non-IPv4 packet
+Am intrat in ma ta
+12904
+1
+aici
 Ignored non-IPv4 packet
-18176
+63636
+1
+12476
 1
 63636
 1
-17330
+12473
 1
 63636
 1
-17320
-1
-63636
-1
-15966
-1
-63636
-1
-14689
+12047
 1
 Ignored non-IPv4 packet
-Ignored non-IPv4 packet
+Am intrat in ma ta
+63636
+1
+11333
+1
 63124
 1
-41691
-1
+aici
+Ignored non-IPv4 packet
 63636
 1
 Ignored non-IPv4 packet
+Am intrat in ma ta
+24774
+1
 Ignored non-IPv4 packet
-47444
-1
-63636
-1
-26911
-1
+Am intrat in ma ta
 63380
 1
-12888
+7930
 1
 Ignored non-IPv4 packet
-Ignored non-IPv4 packet
+Am intrat in ma ta
 63124
 1
-9961
+18876
 1
+Ignored non-IPv4 packet
+Am intrat in ma ta
 proto
 echo
 
@@ -57,83 +65,83 @@ echo
 45118
 63627
 1
-7224
+9180
 1
 63627
 1
-7211
+9170
 1
 63627
 1
-7209
+9164
 1
 63627
 1
-7198
+9156
 1
 63627
 1
-7194
+9149
 1
 63627
 1
-7189
+9147
 1
 63627
 1
-7186
+9143
 1
 63627
 1
-7179
+9141
 1
 63627
 1
-7178
+9133
 1
 63627
 1
-7174
+9132
 1
 Ignored non-IPv4 packet
-Ignored non-IPv4 packet
+Am intrat in ma ta
 63115
 1
-32910
-1
-63115
-1
-32901
+19755
 1
 63115
 1
-32900
+19744
 1
 63115
 1
-32899
+19741
 1
 63115
 1
-32894
+19735
 1
 63115
 1
-32891
+19727
 1
 63115
 1
-32883
+19715
 1
 63115
 1
-32876
+19710
 1
 63115
 1
-32869
+19702
 1
 63115
 1
-32866
+19696
+1
+63115
+1
+19690
 1

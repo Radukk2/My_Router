@@ -7,6 +7,20 @@
 #define ETHERTYPE_IP		0x0800	/* IP protocol */
 #endif
 
+
+#ifndef ETHERTYPE_ARP
+#define ETHERTYPE_ARP		0x0806	/* ARP protocol */
+#endif
+
+#ifndef ARP_REQUEST
+#define ARP_REQUEST 1
+#endif
+
+#ifndef ARP_REPLY
+#define ARP_REPLY 2
+#endif
+
+
 /* Ethernet ARP packet from RFC 826 */
 struct arp_header {
 	uint16_t htype;   /* Format of hardware address */

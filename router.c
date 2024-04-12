@@ -171,16 +171,27 @@ void send_arp_repquest(char *buf, size_t len, int interface, struct route_table_
 	send_to_link(best->interface, new_buf, sizeof(struct arp_header) + sizeof(struct ether_header));
 }
 
-void arp_reply(char *buf, size_t len, int interface, queue q)
+void arp_reply(char *buf, size_t len, int interface, queue q, queue length_queue, struct arp_header *arp_hdr)
 {
 	if (queue_empty(q)) {
 		return;
 	}
+
+	puts("deq");
 	char *new_buff = (char *)queue_deq(q);
-	struct arp_header *arp_hdr = (struct arp_header *) (new_buff + sizeof(struct ether_header));
-	memcpy(arp_table[arp_table_len].mac, arp_hdr->sha, 6);
-	arp_table[arp_table_len].ip = arp_hdr->spa;
-	arp_table_len++;
+	struct ether_header *eth_hdr = (struct ether_header *) new_buff;
+	struct iphdr *ip_hdr = (struct iphdr *) (new_buff + sizeof(struct ether_header));
+	struct route_table_entry *best = get_best_route(ip_hdr->daddr);
+
+	if (best) {
+		puts("best");
+		memcpy(eth_hdr->ether_dhost, arp_hdr->sha, 6);
+		get_interface_mac(best->interface, eth_hdr->ether_shost);
+		int lung = *(int *)queue_deq(length_queue);
+		memcpy(buf, new_buff, lung);
+		send_to_link(best->interface, new_buff, lung);
+	}
+
 }
 
 char* send_arp_reply(char *buf, size_t len, int interface, struct ether_header *eth_hdr)
@@ -190,7 +201,6 @@ char* send_arp_reply(char *buf, size_t len, int interface, struct ether_header *
 	memcpy(ether_hdr->ether_dhost, eth_hdr->ether_shost, 6);
 	get_interface_mac(interface, ether_hdr->ether_shost);
 	ether_hdr->ether_type = htons(ETHERTYPE_ARP);
-	printf("Am intrat in ma ta\n");
 
 	struct arp_header *arp_hdr = malloc(sizeof(struct arp_header));
 	memcpy(arp_hdr->tha, eth_hdr->ether_shost, 6);
@@ -216,6 +226,7 @@ int main(int argc, char *argv[])
 	// Do not modify this line
 	init(argc - 2, argv + 2);
 
+	queue length_queue = queue_create();
 	queue queue = queue_create();
 
 	char buf[MAX_PACKET_LEN];
@@ -225,8 +236,6 @@ int main(int argc, char *argv[])
 	qsort(rtable, rtable_len, sizeof(struct route_table_entry), comp_function);
 	arp_table = malloc(sizeof(struct  arp_table_entry) * 10);
 	DIE(arp_table == NULL, "memory");
-	// arp_table_len = parse_arp_table("arp_table.txt" , arp_table);
-	// int allocated = 10;
 
 	while (1) {
 
@@ -245,16 +254,23 @@ int main(int argc, char *argv[])
 
 			if (eth_hdr->ether_type == ntohs(ETHERTYPE_ARP)) {
 				struct arp_header *arp_hdr= (struct arp_header *)(buf + sizeof(struct ether_header));
-				if (arp_hdr->op == htons(ARP_REQUEST))
+				if (arp_hdr->op == htons(ARP_REQUEST)) {
 					send_arp_reply(buf, len, interface, eth_hdr);
-				else if (arp_hdr->op == htons(ARP_REPLY))
-					arp_reply(buf, len, interface, queue);
+					continue;
+				}
+				else if (arp_hdr->op == htons(ARP_REPLY)) {
+					struct arp_header *arp_hdr = (struct arp_header *) (buf + sizeof(struct ether_header));
+					memcpy(arp_table[arp_table_len].mac, arp_hdr->sha, 6);
+					arp_table[arp_table_len].ip = arp_hdr->spa;
+					arp_table_len++;
+					arp_reply(buf, len, interface, queue, length_queue, arp_hdr);
+					continue;
+				}
+
 			}
-			continue;
 		}
 		struct icmphdr *icmphdr = (struct icmphdr *)(buf + sizeof(struct ether_header) + sizeof(struct iphdr));
 		if (ip_hdr->protocol == 1 && icmphdr->type == 8 && ip_hdr->daddr == inet_addr(get_interface_ip(interface))) {
-			printf("proto\n");
 			icmphdr->type = 0;
 			send_echo(interface, buf, len);
 			continue;
@@ -267,14 +283,12 @@ int main(int argc, char *argv[])
 		if (check != ip_sum) {
 			 continue;
 		}
-		printf("%d\n", check);
 		struct route_table_entry *best = get_best_route(ip_hdr->daddr);
 		if (!best) {
 			int rc = send_icmp("No route", buf, interface, eth_hdr, ip_hdr);
 			DIE( rc == -1, "Unrecognized message");
 			continue;
 		}
-		printf("%d\n", 1);
 		if (ip_hdr->ttl > 1) {
 			ip_hdr->ttl--;
 		} else {
@@ -287,8 +301,15 @@ int main(int argc, char *argv[])
 		ip_hdr->check = htons(check);
 		uint8_t add_mac[6];
 		struct arp_table_entry *mac1 = get_mac_entry(best->next_hop);
+
+		puts("reach");
 		if (!mac1) {
-			queue_enq(queue, buf);
+			char *new = malloc(len);
+			memcpy(new, buf, len);
+			int *new_len = malloc(sizeof(size_t));
+			memcpy(new_len, & len, sizeof(size_t)); 
+			queue_enq(queue, new);
+			queue_enq(length_queue, new_len);
 			send_arp_repquest(buf, len, interface, best);
 			continue;
 		}
